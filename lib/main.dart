@@ -1,3 +1,4 @@
+import 'package:btk_student_system/models/student.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -6,15 +7,26 @@ void main() {
 
 class MyApp extends StatelessWidget {
   @override
-  String headTitle = 'Student Information System';
-  var students = ["Eren Özatak", "Nurullah Özatak", "Beren Özatak"];
+  List<Student> students = [
+    Student("Mariya", "Özatak", 65),
+    Student("Umut", "Özatak", 60),
+    Student("Beren", "Özatak", 40)
+  ];
+
+  MyApp({super.key});
 
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: Icon(
-            Icons.add_a_photo,
-            color: Colors.amberAccent,
+          backgroundColor: Colors.blueGrey[800],
+          leading: Container(
+            child: IconButton(
+              iconSize: 27, // Set the size of the icon
+              icon: Icon(Icons.add_outlined), // Set the icon of the IconButton
+              onPressed: () {
+                // Add your onPressed function here
+              },
+            ), // Add padding to the Container to make the circle smaller
           ),
           actions: [
             IconButton(
@@ -22,7 +34,7 @@ class MyApp extends StatelessWidget {
               onPressed: () {},
             )
           ],
-          title: Text(headTitle),
+          title: Text('Student Information System'),
         ),
         body: buildBody(context));
   }
@@ -55,7 +67,21 @@ class MyApp extends StatelessWidget {
             child: ListView.builder(
                 itemCount: students.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Text(students[index]);
+                  return ListTile(
+                    leading: CircleAvatar(
+                      backgroundImage: NetworkImage(
+                          "https://cdn.pixabay.com/photo/2016/09/01/08/25/smiley-1635456_960_720.png"),
+                    ),
+                    title: Text(students[index].firstName +
+                        " " +
+                        students[index].lastName),
+                    subtitle:
+                        Text("Grade: " + students[index].grade.toString()),
+                    trailing: builtStatusIcon(students[index].grade),
+                    onTap: () {
+                      print(students[index].firstName);
+                    },
+                  );
                 })),
         Center(
           child: ElevatedButton(
@@ -67,5 +93,15 @@ class MyApp extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Widget builtStatusIcon(int grade) {
+    if (grade >= 50) {
+      return Icon(Icons.done);
+    } else if (grade >= 40) {
+      return Icon(Icons.album);
+    } else {
+      return Icon(Icons.clear);
+    }
   }
 }
