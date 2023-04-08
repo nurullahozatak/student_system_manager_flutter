@@ -5,7 +5,14 @@ void main() {
   runApp(MaterialApp(home: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   List<Student> students = [
     Student("Mariya", "Özatak", 65),
@@ -13,12 +20,12 @@ class MyApp extends StatelessWidget {
     Student("Beren", "Özatak", 40)
   ];
 
-  MyApp({super.key});
+  String theStudent = "";
 
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.blueGrey[800],
+          backgroundColor: Color.fromARGB(255, 19, 4, 70),
           leading: Container(
             child: IconButton(
               iconSize: 27, // Set the size of the icon
@@ -34,7 +41,7 @@ class MyApp extends StatelessWidget {
               onPressed: () {},
             )
           ],
-          title: Text('Student Information System'),
+          title: Text('ÖĞRENCİ BİLGİ SİSTEMİ'),
         ),
         body: buildBody(context));
   }
@@ -54,7 +61,7 @@ class MyApp extends StatelessWidget {
 
   void showMessage(BuildContext context, String message) {
     var alert = AlertDialog(
-      title: Text('Exam Conclusion'),
+      title: Text('SINAV SONUCU'),
       content: Text(message),
     );
     showDialog(context: context, builder: (BuildContext context) => alert);
@@ -76,20 +83,29 @@ class MyApp extends StatelessWidget {
                         " " +
                         students[index].lastName),
                     subtitle:
-                        Text("Grade: " + students[index].grade.toString()),
+                        Text("Puanı: " + students[index].grade.toString()),
                     trailing: builtStatusIcon(students[index].grade),
                     onTap: () {
-                      print(students[index].firstName);
+                      setState(() {
+                        theStudent = students[index].firstName +
+                            " " +
+                            students[index].lastName;
+                      });
                     },
                   );
                 })),
+        Text("Seçili Öğrenci : " + theStudent),
         Center(
           child: ElevatedButton(
-              onPressed: () {
-                var message = calculateExam(55);
-                showMessage(context, message);
-              },
-              child: Text('Button')),
+            onPressed: () {
+              var message = calculateExam(55);
+              showMessage(context, message);
+            },
+            child: Text('Sonucu Göster'),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Colors.amber),
+            ),
+          ),
         ),
       ],
     );
