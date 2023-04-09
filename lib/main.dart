@@ -95,17 +95,69 @@ class _MyAppState extends State<MyApp> {
                   );
                 })),
         Text("Seçili Öğrenci : " + theStudent),
-        Center(
-          child: ElevatedButton(
-            onPressed: () {
-              var message = calculateExam(55);
-              showMessage(context, message);
-            },
-            child: Text('Sonucu Göster'),
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.amber),
+        Row(
+          children: [
+            Flexible(
+              fit: FlexFit.tight,
+              flex: 2,
+              child: ElevatedButton(
+                onPressed: () {
+                  var message = calculateExam(55);
+                  showMessage(context, message);
+                },
+                child: Row(
+                  children: [
+                    Icon(Icons.add),
+                    SizedBox(width: 10),
+                    Text('Yeni Öğrenci'),
+                  ],
+                ),
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all(Color.fromARGB(255, 9, 16, 79)),
+                ),
+              ),
             ),
-          ),
+            Flexible(
+              fit: FlexFit.tight,
+              flex: 2,
+              child: ElevatedButton(
+                onPressed: () {
+                  var message = calculateExam(55);
+                  showMessage(context, message);
+                },
+                child: Row(
+                  children: [
+                    SizedBox(width: 8),
+                    Icon(Icons.update),
+                    SizedBox(width: 15),
+                    Text('Güncelle'),
+                  ],
+                ),
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all(Color.fromARGB(255, 255, 0, 0)),
+                ),
+              ),
+            ),
+            Flexible(
+              fit: FlexFit.tight,
+              flex: 1,
+              child: ElevatedButton(
+                onPressed: () {
+                  var message = calculateExam(55);
+                  showMessage(context, message);
+                },
+                child: Row(
+                  children: [Icon(Icons.delete), Text('Sil')],
+                ),
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all(Color.fromARGB(255, 165, 0, 0)),
+                ),
+              ),
+            )
+          ],
         ),
       ],
     );
