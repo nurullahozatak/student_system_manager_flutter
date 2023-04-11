@@ -14,13 +14,13 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   @override
-  List<Student> students = [
-    Student("Mariya", "Özatak", 65),
-    Student("Umut", "Özatak", 60),
-    Student("Beren", "Özatak", 40)
-  ];
+  Student selectedStudent = Student.withId(0, " ", " ", 0);
 
-  String theStudent = "";
+  List<Student> students = [
+    Student.withId(1, "Mariya", "Özatak", 65),
+    Student.withId(2, "Umut", "Özatak", 60),
+    Student.withId(3, "Beren", "Özatak", 40)
+  ];
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,22 +46,9 @@ class _MyAppState extends State<MyApp> {
         body: buildBody(context));
   }
 
-  String calculateExam(int note) {
-    String message = "";
-
-    if (note >= 50) {
-      message = "Geçti";
-    } else if (note >= 40) {
-      message = "Bütünleme";
-    } else {
-      message = "Kaldı";
-    }
-    return message;
-  }
-
   void showMessage(BuildContext context, String message) {
     var alert = AlertDialog(
-      title: Text('SINAV SONUCU'),
+      title: Text('iŞLEM'),
       content: Text(message),
     );
     showDialog(context: context, builder: (BuildContext context) => alert);
@@ -82,29 +69,29 @@ class _MyAppState extends State<MyApp> {
                     title: Text(students[index].firstName +
                         " " +
                         students[index].lastName),
-                    subtitle:
-                        Text("Puanı: " + students[index].grade.toString()),
+                    subtitle: Text("Puanı: " +
+                        students[index].grade.toString() +
+                        "   " +
+                        students[index].getStatus),
                     trailing: builtStatusIcon(students[index].grade),
                     onTap: () {
                       setState(() {
-                        theStudent = students[index].firstName +
-                            " " +
-                            students[index].lastName;
+                        selectedStudent = students[index];
                       });
                     },
                   );
                 })),
-        Text("Seçili Öğrenci : " + theStudent),
+        Text("Seçili Öğrenci : " +
+            selectedStudent.firstName +
+            " " +
+            selectedStudent.lastName),
         Row(
           children: [
             Flexible(
               fit: FlexFit.tight,
               flex: 2,
               child: ElevatedButton(
-                onPressed: () {
-                  var message = calculateExam(55);
-                  showMessage(context, message);
-                },
+                onPressed: () {},
                 child: Row(
                   children: [
                     Icon(Icons.add),
@@ -118,14 +105,13 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
             ),
+
+            //Update button
             Flexible(
               fit: FlexFit.tight,
               flex: 2,
               child: ElevatedButton(
-                onPressed: () {
-                  var message = calculateExam(55);
-                  showMessage(context, message);
-                },
+                onPressed: () {},
                 child: Row(
                   children: [
                     SizedBox(width: 8),
@@ -140,13 +126,21 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
             ),
+
+            //Delete button
             Flexible(
               fit: FlexFit.tight,
               flex: 1,
               child: ElevatedButton(
                 onPressed: () {
-                  var message = calculateExam(55);
-                  showMessage(context, message);
+                  setState(() {
+                    students.remove(selectedStudent);
+                    var message = "Silinen Öğrenci: " +
+                        selectedStudent.firstName +
+                        " " +
+                        selectedStudent.lastName;
+                    showMessage(context, message);
+                  });
                 },
                 child: Row(
                   children: [Icon(Icons.delete), Text('Sil')],
