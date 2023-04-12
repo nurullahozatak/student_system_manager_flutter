@@ -1,4 +1,5 @@
 import 'package:btk_student_system/models/student.dart';
+import 'package:btk_student_system/screens/student_add.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -41,7 +42,7 @@ class _MyAppState extends State<MyApp> {
               onPressed: () {},
             )
           ],
-          title: Text('ÖĞRENCİ BİLGİ SİSTEMİ'),
+          title: Text('    ÖĞRENCİ BİLGİ SİSTEMİ'),
         ),
         body: buildBody(context));
   }
@@ -91,7 +92,10 @@ class _MyAppState extends State<MyApp> {
               fit: FlexFit.tight,
               flex: 2,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => StudentAdd()));
+                },
                 child: Row(
                   children: [
                     Icon(Icons.add),
