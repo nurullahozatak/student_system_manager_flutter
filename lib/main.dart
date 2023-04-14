@@ -3,18 +3,17 @@ import 'package:btk_student_system/screens/student_add.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MaterialApp(home: MyApp()));
+  runApp(const MaterialApp(home: MyApp()));
 }
 
 class MyApp extends StatefulWidget {
-  MyApp({super.key});
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  @override
   Student selectedStudent = Student.withId(0, " ", " ", 0);
 
   List<Student> students = [
@@ -23,33 +22,33 @@ class _MyAppState extends State<MyApp> {
     Student.withId(3, "Beren", "Özatak", 40)
   ];
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 19, 4, 70),
-          leading: Container(
-            child: IconButton(
-              iconSize: 27, // Set the size of the icon
-              icon: Icon(Icons.add_outlined), // Set the icon of the IconButton
-              onPressed: () {
-                // Add your onPressed function here
-              },
-            ), // Add padding to the Container to make the circle smaller
+          backgroundColor: const Color.fromARGB(255, 19, 4, 70),
+          leading: IconButton(
+            iconSize: 27, // Set the size of the icon
+            icon: const Icon(
+                Icons.add_outlined), // Set the icon of the IconButton
+            onPressed: () {
+              // Add your onPressed function here
+            },
           ),
           actions: [
             IconButton(
-              icon: Icon(Icons.place_sharp, color: Colors.white),
+              icon: const Icon(Icons.place_sharp, color: Colors.white),
               onPressed: () {},
             )
           ],
-          title: Text('    ÖĞRENCİ BİLGİ SİSTEMİ'),
+          title: const Text('    ÖĞRENCİ BİLGİ SİSTEMİ'),
         ),
         body: buildBody(context));
   }
 
   void showMessage(BuildContext context, String message) {
     var alert = AlertDialog(
-      title: Text('iŞLEM'),
+      title: const Text('iŞLEM'),
       content: Text(message),
     );
     showDialog(context: context, builder: (BuildContext context) => alert);
@@ -63,17 +62,14 @@ class _MyAppState extends State<MyApp> {
                 itemCount: students.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
-                    leading: CircleAvatar(
+                    leading: const CircleAvatar(
                       backgroundImage: NetworkImage(
                           "https://cdn.pixabay.com/photo/2016/09/01/08/25/smiley-1635456_960_720.png"),
                     ),
-                    title: Text(students[index].firstName +
-                        " " +
-                        students[index].lastName),
-                    subtitle: Text("Puanı: " +
-                        students[index].grade.toString() +
-                        "   " +
-                        students[index].getStatus),
+                    title: Text(
+                        "${students[index].firstName} ${students[index].lastName}"),
+                    subtitle: Text(
+                        "Puanı: ${students[index].grade}   ${students[index].getStatus}"),
                     trailing: builtStatusIcon(students[index].grade),
                     onTap: () {
                       setState(() {
@@ -82,10 +78,8 @@ class _MyAppState extends State<MyApp> {
                     },
                   );
                 })),
-        Text("Seçili Öğrenci : " +
-            selectedStudent.firstName +
-            " " +
-            selectedStudent.lastName),
+        Text(
+            "Seçili Öğrenci : ${selectedStudent.firstName} ${selectedStudent.lastName}"),
         Row(
           children: [
             Flexible(
@@ -93,19 +87,24 @@ class _MyAppState extends State<MyApp> {
               flex: 2,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => StudentAdd()));
+                  Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => StudentAdd(students)))
+                      .then((value) {
+                    setState(() {});
+                  });
                 },
                 child: Row(
                   children: [
-                    Icon(Icons.add),
-                    SizedBox(width: 10),
-                    Text('Yeni Öğrenci'),
+                    const Icon(Icons.add),
+                    const SizedBox(width: 10),
+                    const Text('Yeni Öğrenci'),
                   ],
                 ),
                 style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all(Color.fromARGB(255, 9, 16, 79)),
+                  backgroundColor: MaterialStateProperty.all(
+                      const Color.fromARGB(255, 9, 16, 79)),
                 ),
               ),
             ),
@@ -118,15 +117,15 @@ class _MyAppState extends State<MyApp> {
                 onPressed: () {},
                 child: Row(
                   children: [
-                    SizedBox(width: 8),
-                    Icon(Icons.update),
-                    SizedBox(width: 15),
-                    Text('Güncelle'),
+                    const SizedBox(width: 8),
+                    const Icon(Icons.update),
+                    const SizedBox(width: 15),
+                    const Text('Güncelle'),
                   ],
                 ),
                 style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all(Color.fromARGB(255, 255, 0, 0)),
+                  backgroundColor: MaterialStateProperty.all(
+                      const Color.fromARGB(255, 255, 0, 0)),
                 ),
               ),
             ),
@@ -139,19 +138,17 @@ class _MyAppState extends State<MyApp> {
                 onPressed: () {
                   setState(() {
                     students.remove(selectedStudent);
-                    var message = "Silinen Öğrenci: " +
-                        selectedStudent.firstName +
-                        " " +
-                        selectedStudent.lastName;
+                    var message =
+                        "Silinen Öğrenci: ${selectedStudent.firstName} ${selectedStudent.lastName}";
                     showMessage(context, message);
                   });
                 },
                 child: Row(
-                  children: [Icon(Icons.delete), Text('Sil')],
+                  children: [const Icon(Icons.delete), const Text('Sil')],
                 ),
                 style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all(Color.fromARGB(255, 165, 0, 0)),
+                  backgroundColor: MaterialStateProperty.all(
+                      const Color.fromARGB(255, 165, 0, 0)),
                 ),
               ),
             )
@@ -163,11 +160,11 @@ class _MyAppState extends State<MyApp> {
 
   Widget builtStatusIcon(int grade) {
     if (grade >= 50) {
-      return Icon(Icons.done);
+      return const Icon(Icons.done);
     } else if (grade >= 40) {
-      return Icon(Icons.album);
+      return const Icon(Icons.album);
     } else {
-      return Icon(Icons.clear);
+      return const Icon(Icons.clear);
     }
   }
 }

@@ -18,6 +18,8 @@ class Student {
     this.grade = grade;
   }
 
+  Student.withoutInfo() {}
+
   String get getFirstName {
     return "OGR -" + this.firstName;
   }
