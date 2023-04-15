@@ -25,6 +25,7 @@ class _StudentAddState extends State with StudentValidationMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 50, 50, 51),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 19, 4, 70),
         title: const Text('    ÖĞRENCİ BİLGİ SİSTEMİ'),
@@ -50,9 +51,16 @@ class _StudentAddState extends State with StudentValidationMixin {
     return TextFormField(
       decoration: const InputDecoration(
           labelText: "Öğrencinin Adı",
+          labelStyle: TextStyle(
+            color: Color.fromARGB(255, 196, 195, 195),
+          ),
           hintText: "Nurullah",
-          hintStyle: TextStyle(fontStyle: FontStyle.italic)),
+          hintStyle: TextStyle(
+            fontStyle: FontStyle.italic,
+            color: Color.fromARGB(255, 196, 195, 195),
+          )),
       validator: validateFirstName,
+      style: TextStyle(color: Color.fromARGB(255, 196, 195, 195)),
       onSaved: (String? value) {
         student.firstName = value!;
       },
@@ -63,8 +71,14 @@ class _StudentAddState extends State with StudentValidationMixin {
     return TextFormField(
       decoration: const InputDecoration(
           labelText: "Öğrencinin Soyadı",
+          labelStyle: TextStyle(
+            color: Color.fromARGB(255, 196, 195, 195),
+          ),
           hintText: "Özatak",
-          hintStyle: TextStyle(fontStyle: FontStyle.italic)),
+          hintStyle: TextStyle(
+            fontStyle: FontStyle.italic,
+            color: Color.fromARGB(255, 196, 195, 195),
+          )),
       validator: validateLastName,
       onSaved: (String? value) {
         student.lastName = value!;
@@ -76,8 +90,14 @@ class _StudentAddState extends State with StudentValidationMixin {
     return TextFormField(
       decoration: const InputDecoration(
           labelText: "Öğrencinin Puanı",
+          labelStyle: TextStyle(
+            color: Color.fromARGB(255, 196, 195, 195),
+          ),
           hintText: "50",
-          hintStyle: TextStyle(fontStyle: FontStyle.italic)),
+          hintStyle: TextStyle(
+            fontStyle: FontStyle.italic,
+            color: Color.fromARGB(255, 196, 195, 195),
+          )),
       validator: validateGrade,
       onSaved: (String? value) {
         student.grade = int.parse(value!);

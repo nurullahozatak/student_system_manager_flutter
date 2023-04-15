@@ -25,8 +25,9 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Color.fromARGB(255, 50, 50, 51),
         appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 19, 4, 70),
+          backgroundColor: Color.fromARGB(255, 31, 31, 33),
           leading: IconButton(
             iconSize: 27, // Set the size of the icon
             icon: const Icon(
@@ -66,6 +67,7 @@ class _MyAppState extends State<MyApp> {
                       backgroundImage: NetworkImage(
                           "https://cdn.pixabay.com/photo/2016/09/01/08/25/smiley-1635456_960_720.png"),
                     ),
+                    textColor: Color.fromARGB(255, 196, 195, 195),
                     title: Text(
                         "${students[index].firstName} ${students[index].lastName}"),
                     subtitle: Text(
@@ -79,7 +81,12 @@ class _MyAppState extends State<MyApp> {
                   );
                 })),
         Text(
-            "Seçili Öğrenci : ${selectedStudent.firstName} ${selectedStudent.lastName}"),
+          "Seçili Öğrenci : ${selectedStudent.firstName} ${selectedStudent.lastName}",
+          style: TextStyle(
+            color: Color.fromARGB(255, 196, 195, 195),
+            fontSize: 18,
+          ),
+        ),
         Row(
           children: [
             Flexible(
@@ -160,11 +167,11 @@ class _MyAppState extends State<MyApp> {
 
   Widget builtStatusIcon(int grade) {
     if (grade >= 50) {
-      return const Icon(Icons.done);
+      return const Icon(Icons.done, color: Color.fromARGB(255, 153, 255, 0));
     } else if (grade >= 40) {
-      return const Icon(Icons.album);
+      return const Icon(Icons.album, color: Colors.lightBlue);
     } else {
-      return const Icon(Icons.clear);
+      return const Icon(Icons.clear, color: Color.fromARGB(255, 183, 99, 10));
     }
   }
 }
