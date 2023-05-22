@@ -1,5 +1,6 @@
 import 'package:btk_student_system/models/student.dart';
 import 'package:btk_student_system/screens/student_add.dart';
+import 'package:btk_student_system/screens/student_edit.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -89,6 +90,7 @@ class _MyAppState extends State<MyApp> {
         ),
         Row(
           children: [
+            //Add Button
             Flexible(
               fit: FlexFit.tight,
               flex: 2,
@@ -121,7 +123,15 @@ class _MyAppState extends State<MyApp> {
               fit: FlexFit.tight,
               flex: 2,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              StudentEdit(selectedStudent))).then((value) {
+                    setState(() {});
+                  });
+                },
                 child: Row(
                   children: [
                     const SizedBox(width: 8),

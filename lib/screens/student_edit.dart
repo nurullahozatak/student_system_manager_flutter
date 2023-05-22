@@ -2,25 +2,24 @@ import 'package:btk_student_system/models/student.dart';
 import 'package:btk_student_system/validations/student_validator.dart';
 import 'package:flutter/material.dart';
 
-class StudentAdd extends StatefulWidget {
-  List<Student>? students;
+class StudentEdit extends StatefulWidget {
+  late Student selectedStudent;
 
-  StudentAdd(List<Student> students) {
-    this.students = students;
+  StudentEdit(Student selectedStudent) {
+    this.selectedStudent = selectedStudent;
   }
   @override
   State<StatefulWidget> createState() {
-    return _StudentAddState(students!);
+    return _StudentEditState(selectedStudent);
   }
 }
 
-class _StudentAddState extends State with StudentValidationMixin {
-  List<Student>? students;
-  var student = Student.withoutInfo();
+class _StudentEditState extends State with StudentValidationMixin {
+  late Student selectedStudent;
   var formkey = GlobalKey<FormState>();
 
-  _StudentAddState(List<Student> students) {
-    this.students = students;
+  _StudentEditState(Student selectedStudent) {
+    this.selectedStudent = selectedStudent;
   }
 
   @override
@@ -91,7 +90,7 @@ class _StudentAddState extends State with StudentValidationMixin {
       validator: validateFirstName,
       style: TextStyle(color: Color.fromARGB(255, 196, 195, 195)),
       onSaved: (String? value) {
-        student.firstName = value!;
+        selectedStudent.firstName = value!;
       },
     );
   }
@@ -111,7 +110,7 @@ class _StudentAddState extends State with StudentValidationMixin {
       validator: validateLastName,
       style: TextStyle(color: Color.fromARGB(255, 196, 195, 195)),
       onSaved: (String? value) {
-        student.lastName = value!;
+        selectedStudent.lastName = value!;
       },
     );
   }
@@ -131,7 +130,7 @@ class _StudentAddState extends State with StudentValidationMixin {
       validator: validateGrade,
       style: TextStyle(color: Color.fromARGB(255, 196, 195, 195)),
       onSaved: (String? value) {
-        student.grade = int.parse(value!);
+        selectedStudent.grade = int.parse(value!);
       },
     );
   }
@@ -141,7 +140,6 @@ class _StudentAddState extends State with StudentValidationMixin {
       onPressed: () {
         if (formkey.currentState!.validate()) {
           formkey.currentState!.save();
-          students!.add(student);
           setState(() {
             Navigator.pop(context);
           });
